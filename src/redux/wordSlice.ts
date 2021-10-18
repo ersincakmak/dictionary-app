@@ -71,10 +71,14 @@ export const wordSlice = createSlice({
       state.examStart = "started";
       state.examWords = state.words;
       state.result = [];
-      state.currentQuestion.questionNumber = 1;
-      state.currentQuestion.isFetching = "idle";
-      state.currentQuestion.selectedWord =
-        state.examWords[randomIntFromInterval(0, state.examWords.length - 1)];
+      state.currentQuestion = {
+        isFetching: "idle",
+        isNext: false,
+        isTrue: false,
+        questionNumber: 1,
+        selectedWord:
+          state.examWords[randomIntFromInterval(0, state.examWords.length - 1)],
+      };
     },
     setTotalQuestionCount: (state, aciton: PayloadAction<number>) => {
       state.totalQuestionCount = aciton.payload;
