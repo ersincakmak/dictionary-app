@@ -20,7 +20,7 @@ I used Firebase for authentication and store to data. Other techs;
 
 ## Demo
 
-Demo link is coming soon
+[Demo](https://words-to-memorize.netlify.app/)
 
 ## Installation
 
