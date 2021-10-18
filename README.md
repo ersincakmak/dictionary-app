@@ -1,46 +1,56 @@
-# Getting Started with Create React App
+# WORDS TO MEMORIZE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application was created to make it easier for users who want to memorize words. Application cover only en-tr dictionary for now.
 
-## Available Scripts
+## Features 
 
-In the project directory, you can run:
+You can create an account with your email or you can login easily with Google account. You can add words to your wish list or remove it. Also you can test youself from your wish list.
 
-### `yarn start`
+## Techs
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+I used Firebase for authentication and store to data. Other techs;
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- React JS
+- Typescript
+- Styled-component
+- Redux-toolkit
+- Formik
+- Yup
+- SweetAlert2
 
-### `yarn test`
+## Demo
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Demo link is coming soon
 
-### `yarn build`
+## Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+If you want to run this app on your local you need to create `.env` file on root directory of project. And fill like this 
+```env
+// Your Firebase Config 
+// You can create an app in Firebase official web site
+REACT_APP_apiKey=
+REACT_APP_authDomain=
+REACT_APP_projectId=
+REACT_APP_storageBucket=
+REACT_APP_messagingSenderId=
+REACT_APP_appId=
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+// Your Yandex Dictionary Api Key
+// You can get one https://yandex.com/dev/dictionary on this link
+REACT_APP_dictionaryApiKey=
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+And you are ready to start, just open the terminal and type yarn and checkout localhost:3000 port.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Screenshots
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+![1](screenshots/1.png)
+![2](screenshots/2.png)
+![3](screenshots/3.png)
+![4](screenshots/4.png)
+![5](screenshots/5.png)
+![6](screenshots/6.png)
+![7](screenshots/7.png)
+![8](screenshots/8.png)
+![9](screenshots/9.png)
