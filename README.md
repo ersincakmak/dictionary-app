@@ -6,6 +6,10 @@ This application was created to make it easier for users who want to memorize wo
 
 You can create an account with your email or you can login easily with Google account. You can add words to your wish list or remove it. Also you can test youself from your wish list.
 
+### Created Features on 19.10.2021
+- Multi Add Words to List 
+- Search
+
 ## Techs
 
 I used Firebase for authentication and store to data. Other techs;
