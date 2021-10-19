@@ -118,6 +118,7 @@ const AddWordForm: React.FC<Props> = ({ isModalActive, closeModal }) => {
                           <Button
                             btnWidth="xs"
                             btnColor="red"
+                            type="button"
                             onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
                           >
                             <TiTimes />
