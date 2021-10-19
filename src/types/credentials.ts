@@ -13,6 +13,10 @@ export interface FormikLoginValues {
   password: string;
 }
 
+export interface FormikAddWordValues {
+  words: string[];
+}
+
 export interface FormikRegisterValues {
   email: string;
   password: string;

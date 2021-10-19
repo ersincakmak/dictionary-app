@@ -13,6 +13,7 @@ const Button = styled.button<Props>`
   align-items: center;
   justify-content: center;
   text-align: center;
+  height: max-content;
   gap: 0.5em;
   border-radius: 0.3125rem; // 5px
   font-size: ${(props) => (props.btnWidth === "xs" ? ".875rem" : "1rem")};

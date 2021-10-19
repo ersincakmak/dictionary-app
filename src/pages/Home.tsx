@@ -6,7 +6,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { IoAddSharp } from "react-icons/io5";
 import styled from "styled-components";
 import Swal from "sweetalert2";
@@ -16,6 +16,7 @@ import { firestore } from "../firebase";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import { setWords } from "../redux/wordSlice";
 import { FaTimes } from "react-icons/fa";
+import AddWordForm from "../components/AddWordForm";
 
 const HomeContaier = styled.div`
   display: flex;
@@ -27,6 +28,8 @@ const HomeContaier = styled.div`
 `;
 
 const Home = () => {
+  const [isModalActive, setisModalActive] = useState(false);
+
   const { user } = useAppSelector((state) => state.auth);
   const { words } = useAppSelector((state) => state.word);
 
@@ -79,12 +82,15 @@ const Home = () => {
         style={{
           alignSelf: "flex-end",
         }}
-        onClick={handleAddWordBtn}
+        onClick={() => setisModalActive(true)}
       >
         <IoAddSharp />
         Add Word To List
       </Button>
-
+      <AddWordForm
+        isModalActive={isModalActive}
+        closeModal={() => setisModalActive(false)}
+      />
       <WordList>
         {words.map((item) => (
           <Word key={item.id}>

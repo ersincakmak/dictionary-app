@@ -4,7 +4,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.3em;
-  overflow: hidden;
+  width: 100%;
+  position: relative;
 `;
 
 export default Container;
