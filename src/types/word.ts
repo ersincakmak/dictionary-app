@@ -2,6 +2,8 @@ import { Status } from "./auth";
 
 export interface WordState {
   words: Word[];
+  filteredWords: Word[];
+  filterValue: string;
   examStart: "idle" | "started" | "finished";
   totalQuestionCount: number;
   examWords: Word[];

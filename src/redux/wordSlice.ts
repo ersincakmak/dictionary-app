@@ -7,6 +7,8 @@ import { RootState } from "./store";
 
 const initialState: WordState = {
   words: [],
+  filteredWords: [],
+  filterValue: "",
   examWords: [],
   examStart: "idle",
   totalQuestionCount: 5,
@@ -125,6 +127,14 @@ export const wordSlice = createSlice({
         state.examStart = "finished";
       }
     },
+    setFilterValue: (state, action: PayloadAction<string>) => {
+      state.filterValue = action.payload;
+    },
+    setFilteredWords: (state) => {
+      state.filteredWords = state.words.filter((item) =>
+        item.word.includes(state.filterValue)
+      );
+    },
   },
 
   extraReducers: (builder) => {
@@ -150,6 +160,8 @@ export const {
   startExam,
   nextQuestion,
   clearExam,
+  setFilterValue,
+  setFilteredWords,
 } = wordSlice.actions;
 
 export default wordSlice.reducer;

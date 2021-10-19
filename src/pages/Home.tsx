@@ -1,22 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  addDoc,
-  collection,
-  onSnapshot,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { FaTimes } from "react-icons/fa";
 import { IoAddSharp } from "react-icons/io5";
 import styled from "styled-components";
-import Swal from "sweetalert2";
+import AddWordForm from "../components/AddWordForm";
 import Button from "../components/Button";
+import SearchBar from "../components/Search";
 import { Word, WordList } from "../components/Word";
 import { firestore } from "../firebase";
 import { useAppDispatch, useAppSelector } from "../redux/store";
-import { setWords } from "../redux/wordSlice";
-import { FaTimes } from "react-icons/fa";
-import AddWordForm from "../components/AddWordForm";
+import { setFilteredWords, setWords } from "../redux/wordSlice";
 
 const HomeContaier = styled.div`
   display: flex;
@@ -31,7 +25,7 @@ const Home = () => {
   const [isModalActive, setisModalActive] = useState(false);
 
   const { user } = useAppSelector((state) => state.auth);
-  const { words } = useAppSelector((state) => state.word);
+  const { filterValue, filteredWords } = useAppSelector((state) => state.word);
 
   const dispatch = useAppDispatch();
 
@@ -46,33 +40,15 @@ const Home = () => {
         };
       });
       dispatch(setWords([...data]));
+      dispatch(setFilteredWords());
     });
 
     return () => unSub();
   }, []);
 
-  const handleAddWordBtn = async () => {
-    const { isConfirmed, value } = await Swal.fire({
-      titleText: "ADD LIST",
-      text: "Type Type what you want to add to the word list.",
-      icon: "info",
-      input: "text",
-    });
-
-    if (isConfirmed) {
-      try {
-        if (words.find((item) => item.word === value) || value === "") {
-          return false;
-        } else {
-          await addDoc(wordsRef, {
-            word: value,
-          });
-        }
-      } catch (e) {
-        console.error("Error adding document: ", e);
-      }
-    }
-  };
+  useEffect(() => {
+    dispatch(setFilteredWords());
+  }, [filterValue]);
 
   return (
     <HomeContaier>
@@ -91,8 +67,9 @@ const Home = () => {
         isModalActive={isModalActive}
         closeModal={() => setisModalActive(false)}
       />
+      <SearchBar />
       <WordList>
-        {words.map((item) => (
+        {filteredWords.map((item) => (
           <Word key={item.id}>
             <span>{item.word}</span>
             <Button
