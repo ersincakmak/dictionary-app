@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { FormikProvider, useFormik } from "formik";
 import React, { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import * as yup from "yup";
@@ -69,6 +70,9 @@ const Register = () => {
 
   return (
     <RegisterContainer>
+      <Helmet>
+        <title>WTM | REGISTER</title>
+      </Helmet>
       <FormikProvider value={formik}>
         <Form noValidate={true} onSubmit={formik.handleSubmit}>
           <h1>REGISTER</h1>

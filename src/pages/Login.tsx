@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { FormikProvider, useFormik } from "formik";
 import React, { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -73,6 +74,9 @@ const Login = () => {
 
   return (
     <LoginContainer>
+      <Helmet>
+        <title>WTM | LOGIN</title>
+      </Helmet>
       <FormikProvider value={formik}>
         <Form noValidate={true} onSubmit={formik.handleSubmit}>
           <h1>LOGIN</h1>

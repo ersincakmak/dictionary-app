@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { FormikProvider, useFormik } from "formik";
 import React, { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import styled from "styled-components";
 import * as yup from "yup";
 import Button from "../components/Button";
@@ -58,6 +59,9 @@ const ForgotPassword = () => {
 
   return (
     <ForgotPasswordContainer>
+      <Helmet>
+        <title>WTM | FORGOT PASSWORD</title>
+      </Helmet>
       <FormikProvider value={formik}>
         <Form noValidate={true} onSubmit={formik.handleSubmit}>
           <h1>Reset Password</h1>

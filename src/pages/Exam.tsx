@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { collection, onSnapshot } from "firebase/firestore";
 import React, { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import styled from "styled-components";
 import Button from "../components/Button";
 import Question from "../components/Question";
@@ -78,6 +79,9 @@ const Exam = () => {
 
   return (
     <ExamContainer>
+      <Helmet>
+        <title>WTM | EXAM</title>
+      </Helmet>
       {examStart === "idle" ? (
         <>
           <div

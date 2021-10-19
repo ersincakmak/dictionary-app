@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { FaTimes } from "react-icons/fa";
 import { IoAddSharp } from "react-icons/io5";
 import styled from "styled-components";
@@ -52,6 +53,9 @@ const Home = () => {
 
   return (
     <HomeContaier>
+      <Helmet>
+        <title>WTM | HOME</title>
+      </Helmet>
       <Button
         btnWidth="sm"
         btnColor="brand"

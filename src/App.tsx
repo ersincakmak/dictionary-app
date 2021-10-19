@@ -32,52 +32,54 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
-      <ThemeProvider theme={theme}>
-        <Router>
-          <GlobalStyle />
-          <Header
-            toggleTheme={() =>
-              settheme(theme.title === "dark" ? LightTheme : DarkTheme)
-            }
-          />
-          <Switch>
-            <ProtectedRoute
-              exact
-              path="/login"
-              authenticated={false}
-              component={Login}
+    <>
+      <div className="App">
+        <ThemeProvider theme={theme}>
+          <Router>
+            <GlobalStyle />
+            <Header
+              toggleTheme={() =>
+                settheme(theme.title === "dark" ? LightTheme : DarkTheme)
+              }
             />
-            <ProtectedRoute
-              exact
-              path="/register"
-              authenticated={false}
-              component={Register}
-            />
-            <ProtectedRoute
-              exact
-              path="/forgotpassword"
-              authenticated={false}
-              component={ForgotPassword}
-            />
-            <ProtectedRoute
-              exact
-              path="/"
-              authenticated={true}
-              component={Home}
-            />
-            <ProtectedRoute
-              exact
-              path="/exam"
-              authenticated={true}
-              component={Exam}
-            />
+            <Switch>
+              <ProtectedRoute
+                exact
+                path="/login"
+                authenticated={false}
+                component={Login}
+              />
+              <ProtectedRoute
+                exact
+                path="/register"
+                authenticated={false}
+                component={Register}
+              />
+              <ProtectedRoute
+                exact
+                path="/forgotpassword"
+                authenticated={false}
+                component={ForgotPassword}
+              />
+              <ProtectedRoute
+                exact
+                path="/"
+                authenticated={true}
+                component={Home}
+              />
+              <ProtectedRoute
+                exact
+                path="/exam"
+                authenticated={true}
+                component={Exam}
+              />
 
-            <Redirect from="*" to="/" />
-          </Switch>
-        </Router>
-      </ThemeProvider>
-    </div>
+              <Redirect from="*" to="/" />
+            </Switch>
+          </Router>
+        </ThemeProvider>
+      </div>
+    </>
   );
 };
 
