@@ -1,6 +1,7 @@
 import { WordObject } from './word'
 
 export interface RegisterCredentials {
+  fullname: string
   email: string
   password: string
 }
@@ -20,6 +21,7 @@ export interface FormikAddWordValues {
 }
 
 export interface FormikRegisterValues {
+  fullname: string
   email: string
   password: string
   confirmPassword: string
