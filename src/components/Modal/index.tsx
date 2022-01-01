@@ -1,10 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-const Modal = styled.div<{
-  isModalActive: boolean;
-}>`
+const Modal = styled.div<{}>`
   position: absolute;
-  display: ${(props) => (props.isModalActive === true ? "block" : "none")};
   width: min(37.5rem, 90%); // 600px
   background-color: ${(props) => props.theme.colors.bg};
   border-radius: 5px;
@@ -27,6 +24,6 @@ const Modal = styled.div<{
       font-size: 1.75rem; // 28px
     }
   }
-`;
+`
 
-export default Modal;
+export default Modal

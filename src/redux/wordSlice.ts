@@ -1,120 +1,84 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
-import { API_URL } from "../constants/api";
-import { ApiResponse } from "../types/apiResponse";
-import { Word, WordState } from "../types/word";
-import { RootState } from "./store";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Word, WordState } from '../types/word'
 
 const initialState: WordState = {
   words: [],
   filteredWords: [],
-  filterValue: "",
+  filterValue: '',
   examWords: [],
-  examStart: "idle",
+  examStart: 'idle',
   totalQuestionCount: 5,
   currentQuestion: {
     isNext: false,
     questionNumber: 1,
     selectedWord: undefined,
-    isFetching: "idle",
     isTrue: false,
   },
   result: [],
-};
+}
 
 const randomIntFromInterval = (min: number, max: number) => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-};
-
-export const checkAnswer = createAsyncThunk<
-  boolean,
-  string,
-  {
-    state: RootState;
-    rejectValue: string;
-  }
->("word/check", async (answer, { getState, rejectWithValue }) => {
-  const {
-    word: { currentQuestion },
-  } = getState();
-  try {
-    const { data } = await axios.request<ApiResponse>({
-      method: "GET",
-      url: API_URL(currentQuestion.selectedWord?.word as string),
-    });
-
-    return data.def.find((item) =>
-      item.tr.find(
-        (tr) =>
-          tr.text.toString().toLowerCase() ===
-            answer.toString().toLowerCase() ||
-          tr.syn?.find(
-            (syn) =>
-              syn.text.toString().toLowerCase() ===
-              answer.toString().toLowerCase()
-          )
-      )
-    )
-      ? true
-      : false;
-  } catch (error) {
-    return rejectWithValue("Error while fetching answer.");
-  }
-});
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
 
 export const wordSlice = createSlice({
-  name: "word",
+  name: 'word',
   initialState,
   reducers: {
     setWords: (state, action: PayloadAction<Word[]>) => {
-      state.words = action.payload;
+      state.words = action.payload
     },
     startExam: (state) => {
-      state.examStart = "started";
-      state.examWords = state.words;
-      state.result = [];
+      state.examStart = 'started'
+      state.examWords = state.words
+      state.result = []
       state.currentQuestion = {
-        isFetching: "idle",
         isNext: false,
         isTrue: false,
         questionNumber: 1,
         selectedWord:
-          state.examWords[randomIntFromInterval(0, state.examWords.length - 1)],
-      };
+          state.words[randomIntFromInterval(0, state.examWords.length - 1)],
+      }
     },
     setTotalQuestionCount: (state, aciton: PayloadAction<number>) => {
-      state.totalQuestionCount = aciton.payload;
+      state.totalQuestionCount = aciton.payload
+    },
+    checkAnswer: (state, action: PayloadAction<string>) => {
+      state.currentQuestion = {
+        ...state.currentQuestion,
+        isTrue: !!state.currentQuestion.selectedWord?.word.tr
+          .toLowerCase()
+          .includes(action.payload.toLowerCase()),
+        isNext: true,
+      }
     },
     clearExam: (state) => {
-      state.examStart = "idle";
-      state.result = [];
+      state.examStart = 'idle'
+      state.result = []
       state.currentQuestion = {
-        isFetching: "idle",
         isNext: false,
         isTrue: false,
         questionNumber: 0,
         selectedWord: undefined,
-      };
+      }
     },
-    nextQuestion: (state) => {
+    nextQuestion: (state, action: PayloadAction<string>) => {
       state.result.push({
         questionNumber: state.currentQuestion.questionNumber,
         word: state.currentQuestion.selectedWord as Word,
         isAnswerTrue: state.currentQuestion.isTrue,
-      });
+        userAnswer: action.payload,
+      })
 
       state.examWords = state.examWords.filter(
-        (item) =>
-          item.word.toString() !==
-          state.currentQuestion.selectedWord?.word.toString()
-      );
+        (item) => item.word !== state.currentQuestion.selectedWord?.word
+      )
 
       if (
         state.examWords.length > 0 &&
         state.totalQuestionCount > state.currentQuestion.questionNumber
       ) {
         state.currentQuestion = {
-          isFetching: "idle",
           isNext: false,
           isTrue: false,
           questionNumber: state.currentQuestion.questionNumber + 1,
@@ -122,37 +86,23 @@ export const wordSlice = createSlice({
             state.examWords[
               randomIntFromInterval(0, state.examWords.length - 1)
             ],
-        };
+        }
       } else {
-        state.examStart = "finished";
+        state.examStart = 'finished'
       }
     },
     setFilterValue: (state, action: PayloadAction<string>) => {
-      state.filterValue = action.payload;
+      state.filterValue = action.payload
     },
     setFilteredWords: (state) => {
-      state.filteredWords = state.words.filter((item) =>
-        item.word.includes(state.filterValue)
-      );
+      state.filteredWords = state.words.filter(
+        (item) =>
+          item.word.en.includes(state.filterValue) ||
+          item.word.tr.includes(state.filterValue)
+      )
     },
   },
-
-  extraReducers: (builder) => {
-    builder
-      .addCase(checkAnswer.pending, (state) => {
-        state.currentQuestion.isFetching = "pending";
-      })
-      .addCase(checkAnswer.fulfilled, (state, action) => {
-        state.currentQuestion.isFetching = "filled";
-        state.currentQuestion.isNext = true;
-        state.currentQuestion.isTrue = action.payload;
-      })
-      .addCase(checkAnswer.rejected, (state, action) => {
-        state.currentQuestion.isFetching = "filled";
-        console.log(action.payload);
-      });
-  },
-});
+})
 
 export const {
   setWords,
@@ -160,8 +110,9 @@ export const {
   startExam,
   nextQuestion,
   clearExam,
+  checkAnswer,
   setFilterValue,
   setFilteredWords,
-} = wordSlice.actions;
+} = wordSlice.actions
 
-export default wordSlice.reducer;
+export default wordSlice.reducer

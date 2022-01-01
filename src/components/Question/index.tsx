@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
-import styled from "styled-components";
-import { useAppDispatch, useAppSelector } from "../../redux/store";
-import { checkAnswer, nextQuestion } from "../../redux/wordSlice";
-import Button from "../Button";
+import React, { useRef, useState } from 'react'
+import styled from 'styled-components'
+import { useAppDispatch, useAppSelector } from '../../redux/store'
+import { checkAnswer, nextQuestion } from '../../redux/wordSlice'
+import Button from '../Button'
 
 const Input = styled.input`
   padding: 0.7em 1em;
@@ -12,56 +12,56 @@ const Input = styled.input`
   font-size: 1rem; // 16px
   color: ${(props) => props.theme.colors.text};
   background-color: transparent;
-`;
+`
 
 const AnswerMessage = styled.div<{
-  answer: boolean;
+  answer: boolean
 }>`
   color: ${(props) =>
     props.answer === false
       ? props.theme.colors.error
       : props.theme.colors.success};
   font-weight: 600;
-`;
+`
 
 const QuestionHeader = styled.div`
   font-size: 1.5rem; // 24px
-`;
+`
 
 const Question = () => {
-  const [answer, setanswer] = useState("");
+  const [answer, setanswer] = useState('')
 
-  const { currentQuestion } = useAppSelector((state) => state.word);
+  const { currentQuestion } = useAppSelector((state) => state.word)
 
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
-  const ref = useRef<HTMLInputElement>(null);
+  const ref = useRef<HTMLInputElement>(null)
 
   const nextQuestionFunction = () => {
-    dispatch(nextQuestion());
-    setanswer("");
-    ref.current?.focus();
-  };
+    dispatch(nextQuestion(answer))
+    setanswer('')
+    ref.current?.focus()
+  }
 
   const checkAnswerFunction = async () => {
     switch (currentQuestion.isNext) {
       case true:
-        nextQuestionFunction();
-        break;
+        nextQuestionFunction()
+        break
 
       default:
         if (answer.trim().length) {
-          await dispatch(checkAnswer(answer.trim()));
+          await dispatch(checkAnswer(answer.trim()))
         }
-        break;
+        break
     }
-  };
+  }
 
   return (
     <>
       <QuestionHeader>
-        Question {currentQuestion.questionNumber} :{" "}
-        {currentQuestion.selectedWord?.word}
+        Question {currentQuestion.questionNumber} :{' '}
+        {currentQuestion.selectedWord?.word.en}
       </QuestionHeader>
       <Input
         ref={ref}
@@ -70,11 +70,11 @@ const Question = () => {
         value={answer}
         onInput={(e) => setanswer(e.currentTarget.value)}
         onKeyPress={async (e) =>
-          e.key === "Enter" && (await checkAnswerFunction())
+          e.key === 'Enter' && (await checkAnswerFunction())
         }
       />
 
-      {currentQuestion.isFetching === "filled" ? (
+      {currentQuestion.isNext ? (
         currentQuestion.isTrue ? (
           <AnswerMessage answer={true}>Your answer is TRUE</AnswerMessage>
         ) : (
@@ -86,10 +86,10 @@ const Question = () => {
         btnColor="outlineBrand"
         onClick={async () => await checkAnswerFunction()}
       >
-        {currentQuestion.isNext ? "Next Question" : "Check Answer"}
+        {currentQuestion.isNext ? 'Next Question' : 'Check Answer'}
       </Button>
     </>
-  );
-};
+  )
+}
 
-export default Question;
+export default Question

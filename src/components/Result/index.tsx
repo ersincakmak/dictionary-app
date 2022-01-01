@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { useAppSelector } from "../../redux/store";
+import React from 'react'
+import styled from 'styled-components'
+import { useAppSelector } from '../../redux/store'
 
 const ResultContainer = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const ResultContainer = styled.div`
     text-align: center;
     font-size: 2rem; // 32px
   }
-`;
+`
 
 const List = styled.div`
   display: flex;
@@ -65,17 +65,17 @@ const List = styled.div`
       text-align: center;
     }
   }
-`;
+`
 
 const Answer = styled.span<{
-  answer: boolean;
+  answer: boolean
 }>`
   color: ${(props) =>
     props.answer ? props.theme.colors.success : props.theme.colors.error};
-`;
+`
 
 const Result = () => {
-  const { result } = useAppSelector((state) => state.word);
+  const { result } = useAppSelector((state) => state.word)
 
   return (
     <ResultContainer>
@@ -84,26 +84,24 @@ const Result = () => {
       <List>
         <ul className="header">
           <li className="word">Question Word</li>
+          <li className="word">Expected Answer</li>
           <li className="answer">Your Answer</li>
         </ul>
 
         {result.map((item) => (
-          <ul className="row">
+          <ul className="row" key={item.word.id}>
             <li className="word">
-              {item.questionNumber}. Question : {item.word.word}
+              {item.questionNumber}. Question : {item.word.word.en}
             </li>
+            <li className="word">{item.word.word.tr}</li>
             <li className="answer">
-              {item.isAnswerTrue ? (
-                <Answer answer={true}>TRUE</Answer>
-              ) : (
-                <Answer answer={false}>FALSE</Answer>
-              )}
+              <Answer answer={item.isAnswerTrue}>{item.userAnswer}</Answer>
             </li>
           </ul>
         ))}
       </List>
     </ResultContainer>
-  );
-};
+  )
+}
 
-export default Result;
+export default Result
