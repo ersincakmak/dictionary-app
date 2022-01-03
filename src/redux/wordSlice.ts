@@ -71,7 +71,7 @@ export const wordSlice = createSlice({
       })
 
       state.examWords = state.examWords.filter(
-        (item) => item.word !== state.currentQuestion.selectedWord?.word
+        (item) => item.word.tr !== state.currentQuestion.selectedWord?.word.tr
       )
 
       if (
