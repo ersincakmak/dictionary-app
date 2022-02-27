@@ -1,6 +1,6 @@
 # WORDS TO MEMORIZE
 
-This application was created to make it easier for users who want to memorize words. Application cover only en-tr dictionary for now.
+This application was created to make it easier for users who want to memorize words. Application cover only en-tr for now.
 
 ## Features
 
@@ -41,11 +41,6 @@ REACT_APP_storageBucket=
 REACT_APP_messagingSenderId=
 REACT_APP_appId=
 REACT_APP_measurementId=
-
-
-// Your Yandex Dictionary Api Key
-// You can get one https://yandex.com/dev/dictionary on this link
-REACT_APP_dictionaryApiKey=
 ```
 
 And you are ready to start, just open the terminal and type yarn and checkout localhost:3000 port.
